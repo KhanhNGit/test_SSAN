@@ -46,10 +46,10 @@ class ToTensor_valtest_video(object):
         # torch image: (batch_size) x T x C X H X W
         image_x = image_x[:,:,::-1].transpose((2, 0, 1))
         image_x = np.array(image_x)
-        spoofing_label_np = np.array([0],dtype=np.long)
+        spoofing_label_np = np.array([0],dtype=np.int8)
         spoofing_label_np[0] = spoofing_label
-        sample['image_x'] = torch.from_numpy(image_x.astype(np.float)).float()
-        sample['label'] = torch.from_numpy(spoofing_label_np.astype(np.long)).long()
+        sample['image_x'] = torch.from_numpy(image_x.astype(np.float32)).float()
+        sample['label'] = torch.from_numpy(spoofing_label_np.astype(np.int8)).long()
         return sample
 
 

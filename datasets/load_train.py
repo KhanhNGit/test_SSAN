@@ -33,7 +33,7 @@ class Spoofing_train(Dataset):
     def __init__(self, info_list, root_dir,  transform=None, scale_up=1.5, scale_down=1.0, img_size=256, UUID=-1):
         with open(info_list, 'r') as file:
             info = file.readlines()
-        self.frame = np.array([i.replace('\n','').split(' ') for i in info])
+        self.frame = np.array([[i.replace('\n','')[:-2], i.replace('\n','')[-1]] for i in info])
         self.root_dir = root_dir
         self.transform = transform
         self.scale_up = scale_up

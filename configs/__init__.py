@@ -7,6 +7,7 @@ def parse_args():
     parser.add_argument('--data_dir', type=str, default="", help='YOUR_Data_Dir')
     parser.add_argument('--result_path', type=str, default='./results', help='root result directory')
     parser.add_argument('--result_name', type=str, default='demo', help='result directory')
+    parser.add_argument('--num_dataset_train', type=int, default=4, help='quantity of train datasets')
     # training settings
     parser.add_argument('--batch_size', type=int, default=16, help='batch size')
     parser.add_argument('--img_size', type=int, default=256, help='img size')

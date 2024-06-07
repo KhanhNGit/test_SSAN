@@ -5,10 +5,10 @@ import torchvision.models as models
 
 
 class Discriminator(nn.Module):
-    def __init__(self, max_iter):
+    def __init__(self, max_iter, num_train):
         super(Discriminator, self).__init__()
         self.fc1 = nn.Linear(256, 256)
-        self.fc2 = nn.Linear(256, 3)
+        self.fc2 = nn.Linear(256, num_train)
         self.ad_net = nn.Sequential(
             self.fc1,
             nn.ReLU(inplace=True),
@@ -23,7 +23,7 @@ class Discriminator(nn.Module):
 
 
 class SSAN_R(nn.Module):
-    def __init__(self, ada_num=2, max_iter=4000):
+    def __init__(self, ada_num=2, max_iter=4000, num_train=4):
         super(SSAN_R, self).__init__()
         model_resnet = models.resnet18(pretrained=True)
 
@@ -72,7 +72,7 @@ class SSAN_R(nn.Module):
             nn.Conv2d(256, 256, kernel_size=3, stride=2, padding=1, bias=False),
             nn.InstanceNorm2d(256)
         )
-        self.dis = Discriminator(max_iter)
+        self.dis = Discriminator(max_iter, num_train)
 
     def cal_gamma_beta(self, x1):
         x1 = self.input_layer(x1)

@@ -32,7 +32,7 @@ def main(args):
     train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, num_workers=2)
     max_iter = args.num_epochs*len(train_loader)
     # define model
-    model = get_model(max_iter).cuda()
+    model = get_model(max_iter, args.num_dataset_train).cuda()
     # def optimizer
     optimizer = get_optimizer(
         args.optimizer, model, 
@@ -54,7 +54,6 @@ def main(args):
 
     # define loss
     binary_fuc = nn.CrossEntropyLoss()
-    map_fuc = nn.MSELoss()
     contra_fun = ContrastLoss()
 
     # metrics
