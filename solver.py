@@ -119,7 +119,7 @@ def main(args):
                     eva["best_auc"] = auc_test
                     eva["best_HTER"] = HTER
                     eva["best_epoch"] = epoch+1
-                    model_path = os.path.join(model_root_path, "{}_p{}_best.pth".format(args.model_type, args.protocol))
+                    model_path = os.path.join(model_root_path, "{}_best.pth".format(args.protocol))
                     torch.save({
                         'epoch': epoch+1,
                         'state_dict':model.module.state_dict(),
@@ -129,7 +129,7 @@ def main(args):
                     }, model_path)
                     print("Model saved to {}".format(model_path))
                 print("[Best result] Epoch:{}, HTER={:.4f}, AUC={:.4f}".format(eva["best_epoch"],  eva["best_HTER"], eva["best_auc"]))
-            model_path = os.path.join(model_root_path, "{}_p{}_recent.pth".format(args.model_type, args.protocol))
+            model_path = os.path.join(model_root_path, "{}_recent.pth".format(args.protocol))
             torch.save({
                 'epoch': epoch+1,
                 'state_dict':model.module.state_dict(),
@@ -147,10 +147,11 @@ def test_video(model, test_loader, score_root_path, epoch, name=""):
         scores_list = []
         for i, sample_batched in enumerate(test_loader):
             image_x, label = sample_batched["image_x"].cuda(), sample_batched["label"].cuda()
-            rand_idx = torch.randperm(image_x.shape[0])
-            cls_x1_x1, fea_x1_x1, fea_x1_x2, _ = model(image_x, image_x[rand_idx,:,:,:])
+            # rand_idx = torch.randperm(image_x.shape[0])
+            cls_x1_x1, fea_x1_x1, fea_x1_x2, _ = model(image_x, image_x)
             score_norm = torch.softmax(cls_x1_x1, dim=1)[:, 1]
-            scores_list.append("{}\n".format(score_norm))
+            for ii in range(image_x.shape[0]):
+                scores_list.append("{} {}\n".format(score_norm[ii], label[ii][0]))
             
         map_score_val_filename = os.path.join(score_root_path, "{}_score.txt".format(name))
         print("score: write val scores to {}".format(map_score_val_filename))
