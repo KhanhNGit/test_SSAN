@@ -122,7 +122,7 @@ def main(args):
                     model_path = os.path.join(model_root_path, "{}_best.pth".format(args.protocol))
                     torch.save({
                         'epoch': epoch+1,
-                        'state_dict':model.module.state_dict(),
+                        'state_dict':model.state_dict(),
                         'optimizer':optimizer.state_dict(),
                         'scheduler':scheduler,
                         'args':args,
@@ -132,7 +132,7 @@ def main(args):
             model_path = os.path.join(model_root_path, "{}_recent.pth".format(args.protocol))
             torch.save({
                 'epoch': epoch+1,
-                'state_dict':model.module.state_dict(),
+                'state_dict':model.state_dict(),
                 'optimizer':optimizer.state_dict(),
                 'scheduler':scheduler,
                 'args':args,

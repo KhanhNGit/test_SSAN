@@ -39,12 +39,12 @@ class data_merge(object):
     def get_single_dataset(self, data_name="", train=True, img_size=256, transform=None, debug_subset_size=None, UUID=-1):
         if train:
             data_dir = self.dic[data_name].root_dir
-            data_set = Spoofing_train(os.path.join(data_dir, "train.txt"), os.path.join(data_dir, "train"), transform=transform, img_size=img_size, UUID=UUID)
+            data_set = Spoofing_train(os.path.join(data_dir, "label.txt"), os.path.join(data_dir, "image"), transform=transform, img_size=img_size, UUID=UUID)
             if debug_subset_size is not None:
                 data_set = torch.utils.data.Subset(data_set, range(0, debug_subset_size))
         else:
             data_dir = self.dic[data_name].root_dir
-            data_set = Spoofing_valtest(os.path.join(data_dir, "val.txt"), os.path.join(data_dir, "val"), transform=transform, img_size=img_size, UUID=UUID)
+            data_set = Spoofing_valtest(os.path.join(data_dir, "label.txt"), os.path.join(data_dir, "image"), transform=transform, img_size=img_size, UUID=UUID)
             if debug_subset_size is not None:
                 data_set = torch.utils.data.Subset(data_set, range(0, debug_subset_size))
         print("Loading {}, number: {}".format(data_name, len(data_set)))
