@@ -29,7 +29,7 @@ def main(args):
         train_set = data_bank.get_datasets(train=True, protocol=args.protocol, img_size=args.img_size, transform=transformer_train_ImageNet(), debug_subset_size=args.debug_subset_size)
     else:
         raise Exception
-    train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, num_workers=2)
+    train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
     max_iter = args.num_epochs*len(train_loader)
     # define model
     model = get_model(max_iter, args.num_dataset_train).cuda()
@@ -111,7 +111,7 @@ def main(args):
             for i, test_name in enumerate(test_data_dic.keys()):
                 print("[{}/{}]Validating {}...".format(i+1, len(test_data_dic), test_name))
                 test_set = test_data_dic[test_name]
-                test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, num_workers=2)
+                test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
                 HTER, auc_test = test_video(model, test_loader, score_path, epoch, name=test_name)
                 if auc_test-HTER>=eva["best_auc"]-eva["best_HTER"]:
                     eva["best_auc"] = auc_test

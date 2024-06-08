@@ -9,6 +9,7 @@ def parse_args():
     parser.add_argument('--num_dataset_train', type=int, default=4, help='quantity of train datasets')
     # training settings
     parser.add_argument('--batch_size', type=int, default=16, help='batch size')
+    parser.add_argument('--num_workers', type=int, default=2, help='num workers')
     parser.add_argument('--img_size', type=int, default=256, help='img size')
     parser.add_argument('--protocol', type=str, default="all", help='protocal')
     parser.add_argument('--device', type=str, default='0', help='device id, format is like 0,1,2')
