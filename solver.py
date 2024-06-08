@@ -44,12 +44,10 @@ def main(args):
     # model = nn.DataParallel(model).cuda()
 
     # make dirs
-    model_root_path = os.path.join(args.result_path, args.result_name, "model")
+    model_root_path = os.path.join(args.result_path, args.protocol, "model")
     check_folder(model_root_path)
-    score_root_path = os.path.join(args.result_path, args.result_name, "score")
+    score_root_path = os.path.join(args.result_path, args.protocol, "score")
     check_folder(score_root_path)
-    csv_root_path = os.path.join(args.result_path, args.result_name, "csv")
-    check_folder(csv_root_path)
 
 
     # define loss
