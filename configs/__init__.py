@@ -28,6 +28,10 @@ def parse_args():
     parser.add_argument('--debug_subset_size', type=int, default=None)
     return parser.parse_args()
 
+def parse_args_pred():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--image_name', type=str, default="live.jpg", help='image name in images folder')
+    return parser.parse_args()
 
 def str2bool(x):
     return x.lower() in ('true')
